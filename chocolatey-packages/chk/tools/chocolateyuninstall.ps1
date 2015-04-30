@@ -1,5 +1,7 @@
 ﻿$ErrorActionPreference = 'Stop';
 
+Stop-Process -ProcessName autohotkey  -force
+
 $packageName = 'chk'
 $cinst = $env:ChocolateyInstall
 $packageDir = join-path $cinst\lib\ -ChildPath $packageName
@@ -15,4 +17,6 @@ $startupDir = join-path "$userProfile" -ChildPath "AppData\Roaming\Microsoft\Win
 
 $chkLink = "$startupDir\chk.lnk";
 
+
 rmdir "$chkLink"
+

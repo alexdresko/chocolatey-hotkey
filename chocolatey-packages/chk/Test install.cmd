@@ -1,1 +1,1 @@
-choco install chk -s '%cd%' -force
+choco install chk -s '%cd%' -force -i

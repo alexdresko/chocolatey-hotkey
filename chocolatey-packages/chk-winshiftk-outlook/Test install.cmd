@@ -1,0 +1,1 @@
+choco install chk-winshiftk-outlook -s '%cd%' -force -i
