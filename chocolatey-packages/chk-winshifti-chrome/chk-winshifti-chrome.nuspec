@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>chk-winshifti-chrome</id>
+    <title>WIN+SHIFT+i to launch or activate Chrome</title>
+    <version>1.0.0</version>
+    <authors>Alex Dresko</authors>
+    <owners>Alex Dresko</owners>
+    <summary>WIN+SHIFT+i to launch or activate Chrome</summary>
+    <description>WIN+SHIFT+i to launch or activate Chrome</description>
+    <projectUrl>https://github.com/alexdresko/chocolatey-hotkey</projectUrl>
+    <tags>chk autohotkey admin chrome shortcut</tags>
+    <copyright></copyright>
+    <licenseUrl>https://github.com/alexdresko/chocolatey-hotkey</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <dependencies>
+      <dependency id="autohotkey" />
+      <dependency id="chk" />
+    </dependencies>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
