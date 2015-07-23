@@ -1,0 +1,23 @@
+{
+    "name": "generator-chocolateyhotkey",
+    "version": "1.0.0",
+    "description": "Chocolatey Hotkey generator for yeoman",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alexdresko/chocolatey-hotkey"
+    },
+    "keywords": [
+        "yeoman-generator"
+    ],
+    "author": "Alex Dresko",
+    "bugs": {
+        "url": "https://github.com/alexdresko/chocolatey-hotkey/issues"
+    },
+    "homepage": "https://github.com/alexdresko/chocolatey-hotkey",
+    "dependencies": {
+        "yeoman-generator": "^0.17.3"
+    },
+    "files": [
+        "app"
+    ]
+}

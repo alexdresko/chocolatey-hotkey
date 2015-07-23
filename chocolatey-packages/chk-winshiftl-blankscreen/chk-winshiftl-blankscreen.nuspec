@@ -2,16 +2,15 @@
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
-    <id>chk-winshiftk-outlook</id>
-    <title>Win+Shift+K AutoHotKey for Outlook</title>
+    <id>chk-winshiftl-blankscreen</id>
+    <title>Win+Shift+L to blank screen</title>
     <version>1.0.0</version>
     <authors>Alex Dresko</authors>
     <owners>Alex Dresko</owners>
-    <summary>Runs or activates Outlook on WIN+SHIFT+K.</summary>
-    <description>Runs or activates Outlook on WIN+SHIFT+K.</description>
+    <summary>Starts the blank screensaver.</summary>
+    <description>Starts the blank screensaver.</description>
     <projectUrl>https://github.com/alexdresko/chocolatey-hotkey</projectUrl>
-    <tags>chk autohotkey outlook admin</tags>
+    <tags>chk autohotkey blank screensaver admin</tags>
     <copyright></copyright>
     <licenseUrl>https://github.com/alexdresko/chocolatey-hotkey</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
