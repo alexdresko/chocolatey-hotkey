@@ -6,7 +6,7 @@ var yosay = require('yosay');
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
     var done = this.async();
-
+    var log = this.log;
     // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the funkadelic ' + chalk.red('Chocolateyhotkey') + ' generator!'
@@ -15,11 +15,29 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [{
       type: 'input',
       name: 'id',
-      message: 'Enter a nuget compatible  id'
+      message: 'Enter a nuget compatible  id',
+      validate: function(input) {
+        if (!input || input.trim() === "")  {
+          return false;
+        }
+
+
+        return true;
+
+      }
     }, {
     	type: 'input',
     	name: 'title',
-    	message: 'What is the title of this ?'
+    	message: 'What is the title of this ?',
+       validate: function(input) {
+        if (!input || input.trim() === "")  {
+          return false;
+        }
+
+
+        return true;
+
+      }
 
     }, {
     	type: 'input',
@@ -29,24 +47,55 @@ module.exports = yeoman.generators.Base.extend({
     }, { 
     	type: 'input',
     	name: 'author',
-    	message: 'What is your name?'
+    	message: 'What is your name?',
+      required: true,
+      store: true,
+       validate: function(input) {
+        if (!input || input.trim() === "")  {
+          return false;
+        }
+
+
+        return true;
+
+      }
     }
     , { 
     	type: 'input',
     	name: 'summary',
-    	message: 'Enter a summary for this plugin?'
+    	message: 'Enter a summary for this plugin?',
+       validate: function(input) {
+        if (!input || input.trim() === "")  {
+          return false;
+        }
+
+
+        return true;
+
+      }
     }, { 
     	type: 'input',
     	name: 'description',
-    	message: 'Enter a description for this plugin?'
+    	message: 'Enter a description for this plugin?',
+       validate: function(input) {
+        if (!input || input.trim() === "")  {
+          return false;
+        }
+
+
+        return true;
+
+      }
     }, { 
     	type: 'input',
     	name: 'projectUrl',
-    	message: 'Enter a project URL for this plugin?'
+    	message: 'Enter a project URL for this plugin?',
+      store: true
     }, { 
     	type: 'input',
     	name: 'tags',
-    	message: 'Enter space-separated tags for this plugin?'
+    	message: 'Enter space-separated tags for this plugin?',
+      store: true
     }];
 
     this.prompt(prompts, function (props) {
