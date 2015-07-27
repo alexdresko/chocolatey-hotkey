@@ -21,14 +21,32 @@ module.exports = yeoman.generators.Base.extend({
           return false;
         }
 
+        if (input.toLowerCase().indexOf("chk-") === 0)
+        {
+          log(yosay("No need to start with 'chk-'"));
+          return false;
+        }
+
+        if (input.indexOf(" ") > -1) {
+          log(yosay("Id cannot contain spaces."));
+          return false;
+        }
+
+        var r = /[ "]/;
+        if (r.test(input)) {
+          log(yosay("Id contains invalid characters."));
+        }
 
         return true;
 
+      },
+      filter: function(input) {
+        return input.toLowerCase();
       }
     }, {
     	type: 'input',
     	name: 'title',
-    	message: 'What is the title of this ?',
+    	message: 'What is the title of this thing?',
        validate: function(input) {
         if (!input || input.trim() === "")  {
           return false;
@@ -63,7 +81,7 @@ module.exports = yeoman.generators.Base.extend({
     , { 
     	type: 'input',
     	name: 'summary',
-    	message: 'Enter a summary for this plugin?',
+    	message: 'Enter a summary for this thing?',
        validate: function(input) {
         if (!input || input.trim() === "")  {
           return false;
@@ -76,7 +94,7 @@ module.exports = yeoman.generators.Base.extend({
     }, { 
     	type: 'input',
     	name: 'description',
-    	message: 'Enter a description for this plugin?',
+    	message: 'Enter a description for this thing?',
        validate: function(input) {
         if (!input || input.trim() === "")  {
           return false;
@@ -89,12 +107,21 @@ module.exports = yeoman.generators.Base.extend({
     }, { 
     	type: 'input',
     	name: 'projectUrl',
-    	message: 'Enter a project URL for this plugin?',
+    	message: 'Enter a project URL for this thing?',
       store: true
     }, { 
     	type: 'input',
     	name: 'tags',
-    	message: 'Enter space-separated tags for this plugin?',
+    	message: 'Enter space-separated tags for this thing?',
+      store: true
+    }, { 
+      type: 'list',
+      name: 'type',
+      choices: [
+        { name: 'Plugin', value: 'chocolateyhotkey-plugin'},
+        { name: 'Library', value: "chocolateyhotkey-lib"}
+      ],
+      message: 'What type of chocolatey hotkey thing is this?',
       store: true
     }];
 
