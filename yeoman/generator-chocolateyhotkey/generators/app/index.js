@@ -137,17 +137,26 @@ module.exports = yeoman.generators.Base.extend({
     app: function () {
       this.fs.copyTpl(
         this.templatePath('TEMPLATE-NAME.nuspec'),
-        this.destinationPath(this.props.id + '\\' + this.props.id + '.nuspec'),
+        this.destinationPath("chk-" + this.props.id + '\\chk-' + this.props.id + '.nuspec'),
         { props: this.props }
       );
       this.fs.copy(
         this.templatePath('*.ps1'),
-        this.destinationPath(this.props.id)
+        this.destinationPath("chk-" + this.props.id)
       );
-      this.fs.copy(
-        this.templatePath('tools'),
-        this.destinationPath(this.props.id + "\\tools")
-      );
+
+      if (this.props.type === "chocolateyhotkey-plugin") {
+          this.fs.copy(
+          this.templatePath('plugin'),
+          this.destinationPath("chk-" + this.props.id + "\\tools")
+        );
+      } else { 
+          this.fs.copy(
+          this.templatePath('library'),
+          this.destinationPath("chk-" + this.props.id + "\\tools")
+          );
+      }
+
     }
   },
 

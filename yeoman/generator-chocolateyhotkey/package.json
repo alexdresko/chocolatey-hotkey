@@ -1,6 +1,6 @@
 {
   "name": "generator-chocolateyhotkey",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Yeoman generator for chocolatey hotkey (chk)",
   "license": "MIT",
   "main": "app/index.js",
