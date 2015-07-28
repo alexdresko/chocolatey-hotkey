@@ -1,0 +1,81 @@
+-prep
+
+Verify published chk can have dependency
+Verify published chk can be easily upgraded. 
+Support running scripts outside of the plugin system. Some plugins just need to be indepdendent. I'd create this as a different chk type.. "self-contained"
+Support the organizational structure presented at http://www.autohotkey.com/board/topic/93889-hotkey-help-display-active-ahk-hotkeys-and-hotstrings/page-6?hl=%2Borganize+%2Bmain#entry623474 
+Support library scripts that don't get auto-executed.... something that needs to be manually included. I guess it already does this. 
+
+Fix uninstall to support correct close technique
+DetectHiddenWindows On  ; Allows a script's hidden main window to be detected.
+SetTitleMatchMode 2  ; Avoids the need to specify the full path of the file below.
+WinClose test.ahk
+
+
+create VM
+disable security for browser
+
+-demo
+
+Install chocolatey
+
+https://chocolatey.org/
+
+
+install shortcut
+
+choco install chk-dt-fordatetime -version 1.0.0 -y
+
+* pause
+
+install git
+
+clone repo
+
+mkdir c:\code\git
+
+cd c:\code\git
+
+git clone https://github.com/alexdresko/chocolatey-hotkey.git
+
+cd c:\code\git\chocolatey-hotkey\chocolatey-packages
+
+
+* action
+
+demo new chk plugin to be published. 
+
+choco install nodejs -y
+
+npm install -g yo
+
+npm install -g generator-chocolateyhotkey
+
+yo chocolateyhotkey
+
+complete the wizard
+
+paste in script
+
+powershell
+
+package
+
+test install
+
+test uninstall
+
+push
+
+choco apiKey -k 19bd4451-0169-4f74-b67e-d54d19bac706 -source https://chocolatey.org/
+
+push
+
+demo the creation and publishing of anoather plugin now that everything is installed to show how quickly it can be done once you have everything set up. This demo will be played after the initial install demo, but before the detailed creation demo. 
+
+
+* after
+
+push to github
+
+
