@@ -119,7 +119,8 @@ module.exports = yeoman.generators.Base.extend({
       name: 'type',
       choices: [
         { name: 'Plugin', value: 'chocolateyhotkey-plugin'},
-        { name: 'Library', value: "chocolateyhotkey-lib"}
+        { name: 'Library', value: "chocolateyhotkey-lib"},
+        { name: 'Self-contained', value: "chocolateyhotkey-self"}
       ],
       message: 'What type of chocolatey hotkey thing is this?',
       store: true
@@ -150,11 +151,13 @@ module.exports = yeoman.generators.Base.extend({
           this.templatePath('plugin'),
           this.destinationPath("chk-" + this.props.id + "\\tools")
         );
-      } else { 
+      } else if (this.props.type === "chocolateyhotkey-lib") { 
           this.fs.copy(
           this.templatePath('library'),
           this.destinationPath("chk-" + this.props.id + "\\tools")
           );
+      } else {
+        
       }
 
     }

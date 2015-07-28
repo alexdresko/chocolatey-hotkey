@@ -2,6 +2,7 @@ $chkPackageName = 'chk'
 $cinst = $env:ChocolateyInstall
 $chkPackageDir = join-path $cinst\lib\ -ChildPath $chkPackageName
 
+
 $chkToolsDir = join-path $chkPackageDir -ChildPath "Tools"
 
 $chkPluginsDir = join-path $chkToolsDir -ChildPath "Plugins"
@@ -14,6 +15,8 @@ $startupDir = join-path "$userProfile" -ChildPath "AppData\Roaming\Microsoft\Win
 $chkLink = "$startupDir\chk.lnk";
 
 $pluginsAhk = join-path $chkToolsDir -childPath "plugins.ahk"
+
+
 
 function ReloadChk
 {

@@ -8,12 +8,21 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 	FileRead , plugins_old , %A_ScriptDir%\plugins.ahk ; for comparison later on
 
 	FileDelete %A_ScriptDir%\plugins.ahk ; make room to populate the file
-	loop, %A_ScriptDir%\..\..\chk-plugin.ahk, 0, 1
+
+	pluginIndex := -10
+	loop 20
 	{
-		if A_LoopFileName <> chk.ahk
+		item := pluginIndex + A_Index
+		loop, %A_ScriptDir%\..\..\chk-plugin-%item%-*.ahk, 0, 1
 		{
 			FileAppend, `n#include %A_LoopFileFullPath%, %A_ScriptDir%\plugins.ahk
 		}
+	}
+
+
+	loop, %A_ScriptDir%\..\..\chk-plugin.ahk, 0, 1
+	{
+		FileAppend, `n#include %A_LoopFileFullPath%, %A_ScriptDir%\plugins.ahk
 	}
 
 	FileRead , plugins_new , %A_ScriptDir%\plugins.ahk
@@ -22,3 +31,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 ::kerpow::Chocolatey Hotkey
+
+AddFile(mask)
+{
+	
+
+}
