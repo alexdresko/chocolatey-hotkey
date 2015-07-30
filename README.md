@@ -9,12 +9,13 @@ Current plans
 
 **dev prep**
 
+
+* Support running scripts outside of the plugin system. Some plugins just need to be indepdendent. I'd create this as a different chk type.. "self-contained". But, really, self-contained scripts could have their own plugin system. There's the default "chk" system which is, itself, self-contained. So just need a way to create other self-contained pluggable scripts that can be installed/uninstalled the same as the default CHK. 
 * Verify published chk can have dependency
 * Verify published chk can be easily upgraded. 
-* Support running scripts outside of the plugin system. Some plugins just need to be indepdendent. I'd create this as a different chk type.. "self-contained"
-* Support the organizational structure presented at http://www.autohotkey.com/board/topic/93889-hotkey-help-display-active-ahk-hotkeys-and-hotstrings/page-6?hl=%2Borganize+%2Bmain#entry623474 
-* Support library scripts that don't get auto-executed.... something that needs to be manually included. I guess it already does this. 
+* Update all of the existing plugins to support the new organizational structure
 * self-contained scripts might want to create a shortcut on the desktop
+* support user settings? 
 
 **video prep**
 1. create VM
