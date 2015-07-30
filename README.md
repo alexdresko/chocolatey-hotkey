@@ -10,6 +10,7 @@ Current plans
 **dev prep**
 
 
+
 * Support running scripts outside of the plugin system. Some plugins just need to be indepdendent. I'd create this as a different chk type.. "self-contained". But, really, self-contained scripts could have their own plugin system. There's the default "chk" system which is, itself, self-contained. So just need a way to create other self-contained pluggable scripts that can be installed/uninstalled the same as the default CHK. 
 * Verify published chk can have dependency
 * Verify published chk can be easily upgraded. 
