@@ -3,22 +3,23 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
-    <id>chk</id>
-    <title>Chocolatey Hotkey</title>
+    <id>chk-host-default</id>
+    <title>Chocolatey Hotkey default host</title>
     <version>1.0.0</version>
     <authors>Alex Dresko</authors>
     <owners>Alex Dresko</owners>
     <summary>A modular system for installing AutoHotKey plugins that run on startup with Chocolatey.</summary>
     <description>A modular system for installing AutoHotKey plugins that run on startup with Chocolatey.</description>
     <projectUrl>https://github.com/alexdresko/chocolatey-hotkey</projectUrl>
-    <tags>chk autohotkey startup admin</tags>
+    <tags>chk autohotkey startup default host admin</tags>
     <copyright></copyright>
     <licenseUrl>https://github.com/alexdresko/chocolatey-hotkey</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <!--<iconUrl>http://cdn.rawgit.com/__REPLACE_YOUR_REPO__/master/icons/chk.png</iconUrl>-->
     <dependencies>
       <dependency id="autohotkey" />
-    </dependencies>
+     <dependency id="chk"/>
+     </dependencies>
     <releaseNotes></releaseNotes>
   </metadata>
   <files>

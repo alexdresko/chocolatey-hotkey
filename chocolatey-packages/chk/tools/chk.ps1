@@ -1,29 +1,54 @@
 $chkPackageName = 'chk'
 $cinst = $env:ChocolateyInstall
 $chkPackageDir = join-path $cinst\lib\ -ChildPath $chkPackageName
-
-
 $chkToolsDir = join-path $chkPackageDir -ChildPath "Tools"
+$userProfile = $env:UserProfile
 
-$chkPluginsDir = join-path $chkToolsDir -ChildPath "Plugins"
+$startupDir = join-path "$userProfile" -ChildPath "AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 
 $chkahk = join-path $chkToolsDir -ChildPath "chk.ahk"
 
-$userProfile = $env:UserProfile
-$startupDir = join-path "$userProfile" -ChildPath "AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 
-$chkLink = "$startupDir\chk.lnk";
 
 $pluginsAhk = join-path $chkToolsDir -childPath "plugins.ahk"
 
-
-
-function ReloadChk
+function GetHostLink($name)
 {
+	return  $startupDir + "\chk-host-" + $name  + ".lnk";
+	
+}
+
+function InstallHost($name)
+{
+	$hostLink = GetHostLink($name)
+	$target = join-path $cinst -childpath "lib\chk-host-$name\tools\chk-host-$name.ahk"
+
+	$WshShell = New-Object -comObject WScript.Shell
+	$Shortcut = $WshShell.CreateShortcut($hostLink)
+
+	$Shortcut.TargetPath = $target 
+	$Shortcut.Save()
+
+	invoke-item "$hostLink"
+}
+
+function UninstallHost($name)
+{
+	$uninstall = join-path $cinst -childpath "lib\chk-host-$name\tools\uninstall.ahk"
+
+	invoke-item $uninstall
+	$hostLink = GetHostLink($name)
+	rm "$hostLink"
+}
+
+function ReloadHost($name)
+{
+	$hostLink = GetHostLink($name)
+
 	if (test-path $pluginsAhk)
 	{
 		del $pluginsAhk
 	}
 
-	invoke-item "$chkLink"
+	invoke-item "$hostLink"
 }
