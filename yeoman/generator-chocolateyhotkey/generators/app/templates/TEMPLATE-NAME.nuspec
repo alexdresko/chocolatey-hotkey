@@ -2,7 +2,7 @@
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>chk-<%= props.id %></id>
+    <id>chk-<%= props.prefix %><%= props.id %></id>
     <title><%= props.title %></title>
     <version><%= props.version %></version>
     <authors><%= props.author %></authors>
@@ -10,13 +10,13 @@
     <summary><%= props.summary %></summary>
     <description><%= props.description %></description>
     <projectUrl><%= props.projectUrl %></projectUrl>
-    <tags>chocolatey-hotkey <%= props.type %> <%= props.tags %> autohotkey admin </tags>
+    <tags>chocolatey-hotkey chocolateyhotkey-<%= props.type %> <%= props.tags %> autohotkey admin </tags>
     <copyright></copyright>
     <licenseUrl><%= props.projectUrl %></licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <dependency id="autohotkey" />
-      <dependency id="chk" />
+      <dependency id="<%= props.depdency %>" />
     </dependencies>
     <releaseNotes></releaseNotes>
   </metadata>

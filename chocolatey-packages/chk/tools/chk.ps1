@@ -18,9 +18,13 @@ function GetHostLink($name)
 	
 }
 
-function InstallHost($name)
+function InstallHost()
 {
+	$path = $script:MyInvocation.MyCommand.Path
+	$name =$path -match "chk-host-(.*?)\\" | foreach { $matches[1] } | select -first 1
+
 	$hostLink = GetHostLink($name)
+
 	$target = join-path $cinst -childpath "lib\chk-host-$name\tools\chk-host-$name.ahk"
 
 	$WshShell = New-Object -comObject WScript.Shell
@@ -32,23 +36,30 @@ function InstallHost($name)
 	invoke-item "$hostLink"
 }
 
-function UninstallHost($name)
+function UninstallHost()
 {
-	$uninstall = join-path $cinst -childpath "lib\chk-host-$name\tools\uninstall.ahk"
+	$path = $script:MyInvocation.MyCommand.Path
+	$name =$path -match "chk-host-(.*?)\\" | foreach { $matches[1] } | select -first 1
 
+	$hostLink = GetHostLink($name)
+
+	$uninstall = join-path $cinst -childpath "lib\chk-host-$name\tools\uninstall.ahk"
+	"Invoking $uninstall"
 	invoke-item $uninstall
 	$hostLink = GetHostLink($name)
 	rm "$hostLink"
 }
 
-function ReloadHost($name)
+function ReloadHost()
 {
-	$hostLink = GetHostLink($name)
+	$file  = $script:MyInvocation.MyCommand.Path
 
-	if (test-path $pluginsAhk)
-	{
-		del $pluginsAhk
-	}
+	$hostName = (get-item $file).Directory.Parent.Name -match "chk-(.*?)-" | foreach { $Matches[1] } | select -First 1
 
-	invoke-item "$hostLink"
+	$hostLink = GetHostLink($hostName)
+
+	# invoke-item "$hostLink"
+	Start-ChocolateyProcessAsAdmin "$hostLink"
+	
+	
 }

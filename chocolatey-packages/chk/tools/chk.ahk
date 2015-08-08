@@ -5,7 +5,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 RegexMatch(a_scriptname, "iO)chk-host-(.*?)\.ahk", match)
 name := match.Value(1)
 
-#include %A_ScriptDir%\ ; so the paths can be relative in the plugins.ahk
+#include %A_ScriptDir% ; so the paths can be relative in the plugins.ahk
 #include *i %A_ScriptDir%\plugins.ahk ; *i so the file can be non-existant
 
 
@@ -20,7 +20,7 @@ loop 20
 	item := pluginIndex + A_Index
 	loop, %A_ScriptDir%\..\..\chk-plugin-%name%-%item%*.ahk, 0, 1
 	{
-		FileAppend, `n#include %A_LoopFileFullPath%, %A_ScriptDir%\plugins.ahk
+		FileAppend, `n#include %A_LoopFileLongPath%, %A_ScriptDir%\plugins.ahk
 	}
 }
 
