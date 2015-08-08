@@ -95,7 +95,7 @@ module.exports = yeoman.generators.Base.extend({
  name: 'summary',
  message: 'Enter a summary for this thing?',
  default: function(answers) {
-            return answers.id;
+            return answers.title;
         },
  validate: function(input) {
   if (!input || input.trim() === "")  {
@@ -111,7 +111,7 @@ module.exports = yeoman.generators.Base.extend({
  name: 'description',
  message: 'Enter a description for this thing?',
  default: function(answers) {
-            return answers.id;
+            return answers.summary;
         },
         validate: function(input) {
   if (!input || input.trim() === "")  {
@@ -153,22 +153,21 @@ module.exports = yeoman.generators.Base.extend({
  type: 'input',
  name: 'tags',
  message: 'Enter space-separated tags for this thing?',
- store: true
 }];
 
 this.prompt(prompts, function (props) {
   this.props = props;
 
-  if (this.props.type === "plugin") {
-    if (this.props.defaultHost ) {
-      this.props.dependency = "chk";
-    } else {
-      this.props.dependency = this.props.host;
-    }
-  }
+
 
   if (this.props.defaultHost) {
     this.props.host = "default";
+  }
+
+    if (this.props.type === "plugin") {
+      this.props.dependency = "chk-host-" + this.props.host;
+  } else  {
+    this.props.dependency = "chk";
   }
 
   done();

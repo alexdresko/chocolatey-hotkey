@@ -2,20 +2,20 @@
 <!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>chk-host-default</id>
-    <title>Default host for Chocolatey Hotkey plugins.</title>
+    <id>chk-default-dt-fordatetime</id>
+    <title>dt for in-place date and time</title>
     <version>1.0.0</version>
     <authors>Alex Dresko</authors>
     <owners>Alex Dresko</owners>
-    <summary>Most CHK plugins will run under this host.</summary>
-    <description>Most CHK plugins will run under this host.</description>
+    <summary>Enters the current date and time where ever you type "dt" (without quotes)</summary>
+    <description>Enters the current date and time where ever you type "dt" (without quotes)</description>
     <projectUrl>https://github.com/alexdresko/chocolatey-hotkey</projectUrl>
-    <tags>chocolateyhotkey chocolateyhotkey-host  autohotkey admin </tags>
+    <tags>chocolateyhotkey chocolateyhotkey-plugin date time autohotkey admin </tags>
     <copyright></copyright>
     <licenseUrl>https://github.com/alexdresko/chocolatey-hotkey</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="chk" />
+      <dependency id="chk-host-default" />
     </dependencies>
     <releaseNotes></releaseNotes>
   </metadata>

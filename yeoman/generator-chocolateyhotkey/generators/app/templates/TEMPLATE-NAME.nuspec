@@ -10,13 +10,12 @@
     <summary><%= props.summary %></summary>
     <description><%= props.description %></description>
     <projectUrl><%= props.projectUrl %></projectUrl>
-    <tags>chocolatey-hotkey chocolateyhotkey-<%= props.type %> <%= props.tags %> autohotkey admin </tags>
+    <tags>chocolateyhotkey chocolateyhotkey-<%= props.type %> <%= props.tags %> autohotkey admin </tags>
     <copyright></copyright>
     <licenseUrl><%= props.projectUrl %></licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-      <dependency id="autohotkey" />
-      <dependency id="<%= props.depdency %>" />
+      <dependency id="<%= props.dependency %>" />
     </dependencies>
     <releaseNotes></releaseNotes>
   </metadata>

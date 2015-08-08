@@ -45,7 +45,7 @@ function UninstallHost()
 
 	$uninstall = join-path $cinst -childpath "lib\chk-host-$name\tools\uninstall.ahk"
 	"Invoking $uninstall"
-	invoke-item $uninstall
+	Start-ChocolateyProcessAsAdmin $uninstall
 	$hostLink = GetHostLink($name)
 	rm "$hostLink"
 }
@@ -58,8 +58,6 @@ function ReloadHost()
 
 	$hostLink = GetHostLink($hostName)
 
-	# invoke-item "$hostLink"
-	Start-ChocolateyProcessAsAdmin "$hostLink"
-	
+	invoke-item "$hostLink"
 	
 }
