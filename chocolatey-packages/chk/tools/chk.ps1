@@ -33,7 +33,7 @@ function InstallHost()
 	$Shortcut.TargetPath = $target 
 	$Shortcut.Save()
 
-	invoke-item "$hostLink"
+	Start-Process "$hostLink"
 }
 
 function UninstallHost()
@@ -45,7 +45,7 @@ function UninstallHost()
 
 	$uninstall = join-path $cinst -childpath "lib\chk-host-$name\tools\uninstall.ahk"
 	"Invoking $uninstall"
-	Start-ChocolateyProcessAsAdmin $uninstall
+	Start-Process $uninstall
 	$hostLink = GetHostLink($name)
 	rm "$hostLink"
 }
@@ -55,9 +55,13 @@ function ReloadHost()
 	$file  = $script:MyInvocation.MyCommand.Path
 
 	$hostName = (get-item $file).Directory.Parent.Name -match "chk-(.*?)-" | foreach { $Matches[1] } | select -First 1
-
+    	$plugins = Join-Path $env:ChocolateyInstall -ChildPath "lib\chk-host-default\tools\plugins.ahk"
+    	if (test-path $plugins)
+    	{
+    		remove-item $plugins -Force
+    	}
 	$hostLink = GetHostLink($hostName)
 
-	invoke-item "$hostLink"
+	Start-Process "$hostLink"
 	
 }
