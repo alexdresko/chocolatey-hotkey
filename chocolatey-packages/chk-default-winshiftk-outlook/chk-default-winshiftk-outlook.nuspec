@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>chk-default-winshiftk-outlook</id>
+    <title>WIN+SHIFT+K to activate or start Outlook</title>
+    <version>1.0.0</version>
+    <authors>Alex Dresko</authors>
+    <owners>Alex Dresko</owners>
+    <summary>WIN+SHIFT+K to activate or start Outlook</summary>
+    <description>WIN+SHIFT+K to activate or start Outlook</description>
+    <projectUrl>https://github.com/alexdresko/chocolatey-hotkey</projectUrl>
+    <tags>chocolateyhotkey chocolateyhotkey-plugin outlook autohotkey admin </tags>
+    <copyright></copyright>
+    <licenseUrl>https://github.com/alexdresko/chocolatey-hotkey</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <dependencies>
+      <dependency id="chk-host-default" />
+      <dependency id="chk-default-microsoft-office" />
+    </dependencies>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

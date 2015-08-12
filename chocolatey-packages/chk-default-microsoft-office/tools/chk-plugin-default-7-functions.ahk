@@ -1,0 +1,1 @@
+#include %a_scriptdir%\..\..\chk-lib-microsoft-office\tools\chk-lib-microsoft-office.ahk
