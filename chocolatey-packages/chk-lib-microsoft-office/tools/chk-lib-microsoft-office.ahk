@@ -2,7 +2,7 @@ DoOutlook()
 {
 	SetTitleMatchMode, 2
 
-	IfWinExist - Outlook
+	IfWinExist  Outlook ahk_class rctrl_renwnd32
 	{
 		WinActivate	
 	}
