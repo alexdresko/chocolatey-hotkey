@@ -8,23 +8,11 @@
 	"buffers":
 	[
 		{
-			"contents": "pathToTextEditor = \"%programdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Sublime Text 3.lnk\"\npathToThisScript := A_ScriptFullPath\npathToQuickNotes := \"c:\\Program Files (x86)\\Microsoft Office\\Office14\\ONENOTE.EXE\"\ntextToMatchForQuickNotes := \"OneNote\"\nutilitiesDirectory := A_ScriptDir \"\\..\\\"\npathToSQLMS := A_ScriptDir \"\\..\\LinqPad\\LINQPad.exe\"\npathToTimeSheet = \"C:\\Users\\adresko\\Documents\\Time sheets\\time sheet.xlsx\"\n\n\n\n\nsilentSoundDirectory := A_ScriptDir \"\\..\\silentsound\\\"\n\n#e::\nPath = %A_MyDocuments%\nParent := SubStr(Path, 1, InStr(SubStr(Path,1,-1), \"\\\", 0, 0)-1)\nrun %Parent%\\links\nreturn\n\n#+L::\nrun \"%A_ScriptDir%\\scrnsave.scr.lnk\"\nreturn\n\n\n/*\nActivates the current objective.\n*/\n#^c::\n\nSetTitleMatchMode, 2\nFileReadLine, objective, objective.txt, 1\nIfWinExist %objective%\n{\n    WinActivate\n}\nreturn\n\n/*\nPaste figure and adds caption in outlook\n*/\n#+^e::\nSetTitleMatchMode, 2\nWinGetActiveTitle, Title\nSend, {CTRLDOWN}v{CTRLUP}\nSleep 1000,\nSend, {ALT}{ALT}{SHIFTDOWN}{LEFT}{SHIFTUP}{AppsKey}N\nWinWait, Caption,\nIfWinNotActive, Caption, , WinActivate, Caption,\nWinWaitActive, Caption,\nSleep 100\nSend {ENTER}\nSleep 100\nSend, {SHIFTDOWN}{HOME}{SHIFTUP}\nSleep 500\nWinWait, %Title%,\nIfWinNotActive, %Title%, , WinActivate, %Title%,\nWinWaitActive, %Title%,\nclipboard =  ; Start off empty to allow ClipWait to detect when the text has arrived.\nSend ^c\nClipWait  ; Wait for the clipboard to contain text.\nSend ^h\nSleep 500\nSend jjj\nSend {ENTER}{ENTER}{ESC}\nSleep 500\nSend #+e\nreturn\n\n/*\nInsert the copied reference  in outlook\n*/\n#+e::\nspaceIndex := InStr( clipboard, \" \")\ntype := SubStr(clipboard, 1, spaceIndex)\n\nSend, {ALT}SRF\nWinWait, Cross-reference,\nIfWinNotActive, Cross-reference, , WinActivate, Cross-reference,\nWinWaitActive, Cross-reference,\nLoop, parse, type\n{\n  Send, %A_LoopField%\n}\nSend, {TAB}!w\nSleep 500\n\n\nLoop, parse, clipboard\n{\n  Sendraw, %A_LoopField%\n}\nSend {ALTDOWN}I{ALTUP}{ESC}\nreturn\n\n\n/*\nPaste figure and adds caption\n*/\n#+^f::\nSetTitleMatchMode, 2\nWinGetActiveTitle, Title\nSend, {CTRLDOWN}v{CTRLUP}\nSleep 1000,\nSend, {ALT}{ALT}{SHIFTDOWN}{LEFT}{SHIFTUP}{ALT}SP\nWinWait, Caption,\nIfWinNotActive, Caption, , WinActivate, Caption,\nWinWaitActive, Caption,\nSleep 100\nSend {ENTER}\nSleep 100\nSend, {SHIFTDOWN}{HOME}{SHIFTUP}\nSleep 500\nWinWait, %Title%,\nIfWinNotActive, %Title%, , WinActivate, %Title%,\nWinWaitActive, %Title%,\nclipboard =  ; Start off empty to allow ClipWait to detect when the text has arrived.\nSend ^c\nClipWait  ; Wait for the clipboard to contain text.\nSend ^f\nSleep 500\nSend jjj\nSend {ENTER}{ENTER}{ESC}\nSleep 500\nSend #+f\nreturn\n\n/*\nInsert the copied reference\n*/\n#+f::\nspaceIndex := InStr( clipboard, \" \")\ntype := SubStr(clipboard, 1, spaceIndex)\n\nSend, {ALT}SRF\nWinWait, Cross-reference,\nIfWinNotActive, Cross-reference, , WinActivate, Cross-reference,\nWinWaitActive, Cross-reference,\nLoop, parse, type\n{\n  Send, %A_LoopField%\n}\nSend, {TAB}!w\nSleep 500\n\n\nLoop, parse, clipboard\n{\n  Sendraw, %A_LoopField%\n}\nSend {ALTDOWN}I{ALTUP}{ESC}\nreturn\n\n/*\nSETS the current objective.\n*/\n#!c::\nFileDelete, objective.txt\nWinGetActiveTitle, Title\nMsgBox, The active window is \"%Title%\".\nFileAppend, %Title%, objective.txt\n\nreturn\n\n#+z::\nSetTitleMatchMode, 2\nIfWinExist Zune\n{\n    WinActivate\n}\nelse\n{\n	Run C:\\Program Files\\Zune\\Zune.exe\n	WinActivate\n}\nreturn\n\n#+h::\nSetTitleMatchMode, 2\nIfWinExist HexChat\n{\n    WinActivate\n}\nelse\n{\n  Run C:\\Program Files\\HexChat\\hexchat.exe\n  WinActivate\n}\nreturn\n\n#Space::\nSetTitleMatchMode, Regex\nInputBox, UserInput, Title?\nIfWinExist i)%UserInput%\n{\n	WinActivate\n}\nelse\n{\n	MsgBox Could not find \"%UserInput%\"\n}\nreturn\n\n#+o::\n\nInputBox, UserInput, OneNote Faves, 1 = Groceries. 2 = Alex. 3 = Together. 4 = CSI Projects. 5 = Organizational, , 640, 480\nif NOT ErrorLevel\n{\n  IfEqual UserInput, 1\n  {\n    Run %A_ScriptDir%\\..\\OneNoteFaves\\Groceries.url\n  }\n\n  IfEqual UserInput, 2\n  {\n    Run %A_ScriptDir%\\..\\OneNoteFaves\\Alex.url\n  }\n\n\n  IfEqual UserInput, 3\n  {\n    Run %A_ScriptDir%\\..\\OneNoteFaves\\Together.url\n  }\n\n\n  IfEqual UserInput, 4\n  {\n    Run %A_ScriptDir%\\..\\OneNoteFaves\\CSI Projects.url\n  }\n\n  IfEqual UserInput, 5\n  {\n    Run %A_ScriptDir%\\..\\OneNoteFaves\\Organizational.url\n  }\n\n\n}\n\nreturn\n\n\n\n#+^k::\nSetTitleMatchMode, 2\nIfWinExist Remote Desktop\n{\n    WinActivate\n}\nelse\n{\n    Run mstsc\n    WinActivate\n}\nreturn\n\n\n\n\n#w::\nSetTitleMatchMode, 2\nIfWinExist Windows Media Player\n{\n    WinActivate\n}\nelse\n{\n    Run wmplayer\n    WinActivate\n}\nreturn\n\n\n#+r::\nSetTitleMatchMode, 2\nIfWinExist Reminder\n{\n    WinActivate\n}\nelse\n{\n    Send, {LWINDOWN}k{LWINUP}\n    WinWait, - Outlook,\n    IfWinNotActive, - Outlook, , WinActivate,- Outlook,\n    WinWaitActive, - Outlook,\n    SendPlay, {ALTDOWN}v{ALTUP}m\n\n    IfWinExist Reminders\n    {\n        WinActivate\n    }\n}\nreturn\n\n\n\n\n\n\n\nShowChomeTab(pageTitle, url)\n{\n  SendInput #i\n  WinWaitActive Chrome\n  SendInput {ESC}{ESC}!d\n  Sleep 300\n  SendInput TAB{TAB}%pageTitle%{ENTER}\n  Sleep 2000\n  WinGetActiveTitle, Title\n\n  found := InStr(Title, pageTitle)\n\n  if (found == 0)\n  {\n    SENDInput {SHIFTUP}{ESC}^T\n    Sleep 500\n    send %url%{ENTER}\n  }\n\n}\n\n#+i::\nSetTitleMatchMode, 2\nIfWinExist Chrome\n{\n    WinActivate\n}\nelse\n{\n    Run Chrome\n    WinActivate\n}\nreturn\n\n\n::jad::Alex Dresko\n\n\n::dt::\nFormatTime, CurrentDateTime,, M/d/yyyy h:mm:ss tt\nRR = %CurrentDateTime%: %A_Space%\nSendInput %RR%  %A_Space%\nreturn\n\n::rr::\nSendInput %RR%\nreturn\n\n\n\n#q::\nSetTitleMatchMode, 2\nIfWinExist LINQPad\n{\n	WinActivate\n\n}\nelse\n{\n	Run %pathToSQLMS%\n}\nreturn\n\n#+q::\nSetTitleMatchMode, 2\nIfWinExist Microsoft SQL Server Management Studio\n{\n	WinActivate\n\n}\nelse\n{\n	Run \"C:\\Program Files (x86)\\Microsoft SQL Server\\120\\Tools\\Binn\\ManagementStudio\\Ssms.exe\"\n}\nreturn\n\n#F9::\nRun %pathToTimeFile%\nreturn\n\n#F11::\nSetTitleMatchMode, 2\nIfWinExist global.ahk\n{\n	WinActivate\n\n}\nelse\n{\n	Run %pathToTextEditor%, \"%pathToThisScript%\"\n}\nreturn\n\n#F12::\nRun %pathToThisScript%\nreturn\n",
-			"file": "/C/Users/Alex Dresko/OneDrive/Utilities/AutoHotKeyScripts/Global.ahk",
-			"file_size": 7722,
-			"file_write_time": 130857832660000000,
+			"file": "chocolatey-packages/chk-lib-alexdresko/tools/chk-lib-alexdresko.ahk",
 			"settings":
 			{
-				"buffer_size": 5870,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "::dftba::\nSendInput don't forget to be awesome{!}\nreturn\n\n::dtad::\nFormatTime, CurrentDateTime,, M/d/yyyy h:mm:ss tt\nRR = %CurrentDateTime% by AD: %A_Space%\nSendInput %RR%  %A_Space%\nreturn\n\n::dadtad::\nFormatTime, CurrentDateTime,, M/d/yyyy h:mm:ss tt\nRR = DONE AT %CurrentDateTime% by AD > %A_Space%\nSendInput %RR%  %A_Space%\nreturn\n\n::taodtad::\nFormatTime, CurrentDateTime,, M/d/yyyy h:mm:ss tt\nRR = TESTABLE AS OF %CurrentDateTime% by AD > %A_Space%\nSendInput %RR% %A_Space%\nreturn\n\n::dbdtad::\nFormatTime, CurrentDateTime,, M/d/yyyy h:mm:ss tt\nRR = DONE BEFORE %CurrentDateTime% by AD >%A_Space%\nSendInput %RR% %A_Space%\nreturn\n\n::sadtad::\nFormatTime, CurrentDateTime,, M/d/yyyy h:mm:ss tt\nRR = < STARTED AT %CurrentDateTime% by AD > %A_Space%\nSendInput %RR% %A_Space%\nreturn\n\n\n::aodtad::\nFormatTime, CurrentDateTime,, M/d/yyyy h:mm:ss tt\nRR = as of %CurrentDateTime% by AD.%A_Space%\nSendInput %RR% %A_Space%\nreturn\n\n::aodt::\nFormatTime, CurrentDateTime,, M/d/yyyy h:mm:ss tt\nRR = as of %CurrentDateTime%. %A_Space%\nSendInput %RR% %A_Space%\nreturn\n\n::fsdtad::\nFormatTime, CurrentDateTime,, yyyy-MM-dd HH-mm-ss\nRR = %CurrentDateTime% by Alex Dresko\nSendInput %RR%\nreturn\n\n::@cc::adresko@cchpsc.org\n::@hotmail::alexdresko@hotmail.com\n::@gmail::alexdresko@gmail.com\n::@home::me@alexdresko.com\n::@tibby::me@tibreadresko.com\n::ccorg::consumerschoicesc.org\n::sddocs::C:\\Users\\adresko\\SkyDrive\\Documents",
-			"settings":
-			{
-				"buffer_size": 1399,
-				"line_ending": "Windows",
-				"name": "::dftba::"
+				"buffer_size": 573,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -35,12 +23,44 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 35.0,
+		"height": 242.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"install pa",
+				"Package Control: Install Package"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"git: stat",
+				"Git: Status"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"package instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Enable Package"
+			],
+			[
+				"list pack",
+				"Package Control: List Packages"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			]
 		],
-		"width": 392.0
+		"width": 400.0
 	},
 	"console":
 	{
@@ -62,23 +82,153 @@
 	[
 		"/C/projects/git/chocolatey-hotkey",
 		"/C/projects/git/chocolatey-hotkey/chocolatey-packages",
-		"/C/Users/Alex Dresko/OneDrive/Utilities/AutoHotKeyScripts"
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-alexdresko",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-alexdresko/tools",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-lib-alexdresko",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-lib-alexdresko/tools"
 	],
 	"file_history":
 	[
-		"/C/projects/test/RequireJsStuff/RequireJsStuff/RequireJsStuff.csproj",
-		"/C/Users/Alex Dresko/OneDrive/Utilities/LinqPad/csi license.txt",
-		"/E/AV/Backup.cmd"
+		"/C/Users/adresko.CCHPSC/Desktop/plans.json",
+		"/C/projects/CC/JsonThing/Files/cha provider facility.csv",
+		"/C/projects/CC/JsonThing/TestResults/adresko_GRNLTDEV01 2015-09-23 17_10_13/Out/test plan output.json",
+		"/C/projects/CC/JsonThing/Files/cha plans.csv",
+		"/C/projects/CC/JsonThing/TestResults/adresko_GRNLTDEV01 2015-09-23 19_34_32/Out/cha plans.csv",
+		"/C/Users/adresko.CCHPSC/Desktop/providers.json",
+		"/C/Users/adresko.CCHPSC/Desktop/cha plans.csv",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-lib-microsoft-office/tools/chk-lib-microsoft-office.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-alexdresko/tools/chk-plugin-default-4-hotkeys.ahk",
+		"/C/Users/adresko.CCHPSC/Desktop/asdf.ahk",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook/I76PFTDV/SSO Primer For Partners.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1334.zip/Build/8_Publish to CCHP QA vNext.txt",
+		"/C/Program Files (x86)/Telerik/Kendo UI Professional Q2 2015/typescript/kendo.all.d.ts",
+		"/C/projects/CC/Magnifico/Dev/CC.Magnifico.Web/CC.Magnifico.Web.csproj",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1321.zip/Build/3_Powershell $MagnificoDevprepare-integration-tests.ps1.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1321.zip/1_Build.txt",
+		"/C/projects/CC/Magnifico/Dev/CC.Magnifico.Web/Views/Shared/_Layout2.cshtml",
+		"/E/Users/adresko/OneDrive/LinqPad/csi license.txt",
+		"/C/projects/test/RequireJsAgain/RequireJsAgain/RequireJsAgain.csproj",
+		"/C/projects/CC/Magnifico/3.25.0/CC.Excellente.Business/BrokerCustomers.cs",
+		"/C/temp/Book1.csv",
+		"/C/projects/CC/Magnifico/Dev/packages/NSubstitute.1.8.2.0/lib/net45/NSubstitute.XML",
+		"/C/projects/CC/CC.Maintenance.Web/CC.Maintenance.Web/Global.asax.cs",
+		"/C/projects/CC/CC.Maintenance.Web/CC.Maintenance.Web/Core/FirstRequestInitialization.cs",
+		"/C/inetpub/logs/LogFiles/W3SVC5/u_ex150831.log",
+		"/C/inetpub/logs/LogFiles/W3SVC4/u_ex150831.log",
+		"/C/inetpub/logs/LogFiles/W3SVC4/u_ex150828.log",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Microsoft/Microsoft SQL Server Local DB/Instances/v11.0/error.log",
+		"/C/Windows/System32/inetsrv/config/applicationHost.config",
+		"/C/projects/CC/Magnifico/Dev/delme/index.html",
+		"/C/temp/blast.csv",
+		"/C/projects/CC/Magnifico/Dev/TestSettings1.testsettings",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1174.zip/Build/4_Test Assemblies $(BuildConfiguration)tests.dll;-obj.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1178.zip/Build/4_Test Assemblies $(BuildConfiguration)tests.dll;-obj.txt",
+		"/C/Users/adresko.CCHPSC/Downloads/agent/ConfigureAgent.ps1",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1160.zip/Build/4_Test Assemblies $(BuildConfiguration)tests.dll;-obj.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1158.zip/Build/4_Test Assemblies $(BuildConfiguration)tests.dll;-obj.txt",
+		"/C/Users/adresko.CCHPSC/Downloads/agent/settings.json",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1126.zip/Build/4_Test Assemblies $(BuildConfiguration)tests..dll;-obj.txt",
+		"/C/projects/CC/Magnifico/Dev/CC.Common.Tests/CC.Common.Tests.csproj",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1135.zip/Build/4_Test Assemblies $(BuildConfiguration)tests..dll;-obj.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1135 (1).zip/1_Build.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1135 (1).zip/Build/4_Test Assemblies $(BuildConfiguration)tests..dll;-obj.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1139.zip/1_Build.txt",
+		"/C/projects/CC/Magnifico/Dev/ci-build.testsettings",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1146.zip/1_Build.txt",
+		"/E/Backup/Credentialing/CCHP/Submissions/Excel/sorted/unique/Known Facilities fixed.csv",
+		"/E/Backup/Credentialing/CCHP/Submissions/Excel/sorted/unique/Known Practitioners fixed.csv",
+		"/C/projects/CC/Magnifico/Dev/CC.Common/packages.config",
+		"/C/ProgramData/Dell/UpdatePackage/Log/Network_Driver_X8VN6_WN32_10.0.0.318_A00.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1078.zip/1_Build.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1076.zip/Build/4_Test Assemblies $(BuildConfiguration)tests..dll;-obj.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1074.zip/1_Build.txt",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1076.zip/Build/3_Powershell $MagnificoDevprepare-integration-tests.ps1.txt",
+		"/C/projects/CC/Magnifico/Dev/CC.Magnifico.Web/Properties/PublishProfiles/CCHP QA vNext.pubxml.user",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-winspace-windowbytext/tools/chk-plugin-default-4-hotkeys.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-winshiftk-outlook/tools/chk-plugin-default-4-hotkeys.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-microsoft-office/tools/chk-plugin-default-7-functions.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-microsoft-office/chk-default-microsoft-office.nuspec",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-winshiftk-outlook/chk-default-winshiftk-outlook.nuspec",
+		"/C/Users/adresko.CCHPSC/.gitconfig",
+		"/C/projects/CC/Magnifico/Dev/migrate.exe.config",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_1053.zip/1_Build.txt",
+		"/C/projects/CC/Magnifico/Dev/create-user-tables.sql",
+		"/C/projects/CC/Magnifico/Dev/CC.Magnifico.Tests.Integration/Databases/CHADW.sql",
+		"/C/projects/CC/Magnifico/Dev/CC.Magnifico.Tests.Integration/Databases/delete me.sql",
+		"/C/projects/git/chocolatey-hotkey/s4yjd55s.p5h.txt",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/generators/app/index.js",
+		"/C/projects/git/chocolatey-hotkey/backup/chk-winshiftl-blankscreen/chk-winshiftl-blankscreen.nuspec",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk/tools/chk.ps1",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-winshiftl-blankscreen/tools/chk-plugin-default-4-hotkeys.ahk",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/generators/app/templates/TEMPLATE-NAME.nuspec",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-host-default/chk-host-default.nuspec",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-dt-fordatetime/tools/chk-plugin-default-4-hotkeys.ahk",
+		"/C/projects/git/chocolatey-hotkey/README.md",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/package.json",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-dt-fordatetime/chk-default-dt-fordatetime.nuspec",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-winshifti-chrome/chk-default-winshifti-chrome.nuspec",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-default-winshifti-chrome/tools/chk-plugin-default-4-hotkeys.ahk",
+		"/C/ProgramData/chocolatey/lib/chk-host-z1/tools/uninstall.ahk",
+		"/C/ProgramData/chocolatey/lib/chk/tools/chk.ps1",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/generators/app/templates/plugin/chocolateyuninstall.ps1",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/generators/app/templates/plugin/chocolateyinstall.ps1",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/generators/app/templates/host/chocolateyuninstall.ps1",
+		"/C/temp/cho/asdf.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk/tools/chk.ahk",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/generators/app/templates/host/uninstall.ahk",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/generators/app/templates/host/chocolateyinstall.ps1",
+		"/E/temp/waffle/chk-lib-adlib/chk-adlib.nuspec",
+		"/E/temp/waffle/chk-lib-adlib/tools/chk-lib.ahk",
+		"/E/temp/waffle/chk-adlib2/chk-adlib2.nuspec",
+		"/C/Users/adresko.CCHPSC/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk/tools/chocolateyuninstall.ps1",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk/tools/chocolateyinstall.ps1",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk/tools/uninstall.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk/tools/chk-host-default.ahk",
+		"/C/ProgramData/chocolatey/lib/chk/tools/chk.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-host-default/tools/uninstall.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-host-default/tools/chocolateyuninstall.ps1",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-host-default/tools/chocolateyinstall.ps1",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-host-default/tools/chk-host-default.ahk",
+		"/C/ProgramData/chocolatey/lib/chk-host-default/tools/uninstall.chk",
+		"/C/projects/CC/Magnifico/Dev/packages/repositories.config",
+		"/C/projects/CC/Magnifico/Dev/CC.Magnifico.Web/package.json",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_logs_979.zip/1_Build.txt",
+		"/C/Users/adresko.CCHPSC/Downloads/AttachTo/AttachTo/extension.vsixmanifest",
+		"/C/Users/adresko.CCHPSC/Downloads/EFPowerTools/extension.vsixmanifest",
+		"/C/Users/adresko.CCHPSC/Desktop/test.vbs",
+		"/C/projects/git/AttachTo/Whut.AttachTo/source.extension.vsixmanifest",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_CDT_Consumers_CLEAN_20130605.zip/CDT_PRODUCT.TXT",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_CDT_Consumers_CLEAN_20150528.zip/CDT_PRODUCT.TXT",
+		"/C/Users/adresko.CCHPSC/AppData/Local/Temp/Temp1_CDT_Consumers_CLEAN_20150528.zip/CDT_PRIMARY.TXT",
+		"/C/projects/git/chocolatey-hotkey/notes.txt",
+		"/C/temp/errors.csv",
+		"/C/Users/adresko.CCHPSC/Desktop/Closer.ahk",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/spoof/spoof.nuspec",
+		"/C/projects/git/chocolatey-hotkey/.gitignore",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey_old/package.json",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/README.md",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/.yo-rc.json",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/.travis.yml",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/.jshintrc",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/.gitignore",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/.gitattributes",
+		"/C/projects/git/chocolatey-hotkey/yeoman/generator-chocolateyhotkey/.editorconfig",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-winshifti-chrome/chk-winshifti-chrome.nuspec",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-winshifti-chrome/tools/chk-plugin.ahk",
+		"/C/projects/git/chocolatey-hotkey/chocolatey-packages/chk-winshiftl-blankscreen/chk-winshiftl-blankscreen.nuspec"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
+			"C:\\projects\\git\\chocolatey-hotkey",
+			"C:\\projects\\git\\chocolatey-hotkey\\chocolatey-packages"
 		]
 	},
 	"find_state":
@@ -86,16 +236,223 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"|AnyCPU",
+			"DoOutlook",
+			"error",
+			"version",
+			"TypeScriptToolsVersion",
+			"error",
+			"--",
+			"typescript",
 			"|$(Platform)",
-			"|AnyCPU"
+			"|AnyCPU",
+			"(.*) ?\\n?",
+			"applicationhost",
+			"<mag",
+			"directoryBrowse",
+			"testo",
+			"magintegrationvnext",
+			"deploy",
+			"cchp",
+			"getformatted",
+			"GetFormattedDollarOrPercen",
+			"GetFormattedDollarOrPercent",
+			": 3e4a9e5f-aec0-43b8-a469-07b935ce1d3b",
+			".*DispatchAsync - ",
+			"coded.ui",
+			"cover",
+			"cc.common.tests.dll",
+			"GetFormattedDollarOrPercent929",
+			"GetFormattedDollarOrPercent",
+			"^(.*) ?\\n?",
+			".*code ",
+			"^(?=.*glyphicon ).*\\n?",
+			"--",
+			"create table",
+			"asdf",
+			"entityframe",
+			"invoke-item",
+			"hostLink",
+			"GetHostLink",
+			"startupDir",
+			"start",
+			"host-undefined",
+			"hostlink",
+			"type",
+			"reloadchk",
+			"self",
+			"return false;",
+			"2",
+			"tab",
+			"space",
+			"/",
+			"/>\n",
+			"UnitTestFramework",
+			"<Reference",
+			"UITesting",
+			".UITest.Extension",
+			"UITest.Common",
+			"CodedUITestFramework",
+			"Reference",
+			"UnitTestFramework",
+			"refere",
+			"t4mvc",
+			"packages",
+			"t4mvc",
+			"IT4MVCActionResult",
+			"T4MVCExtensions",
+			"t4mvc",
+			"^(?=.*There is already an open DataReader associated with this Command which must b).*\\n",
+			"^(?=.*Object reference not set to an instance of an object).*\\n",
+			"^(?=.*A potentially dangerous Request.Path value was detected from the client).*\\n",
+			"^(?=.*The provided anti-forgery token was meant for user).*\\n",
+			"^(?=.*The anti-forgery cookie token and form field token do not match).*\\n",
+			"^(?=.*A connection attempt failed because the connected party did not properly respond after).*\\n",
+			",",
+			"Map\\(p => p.(.*?)\\).Name\\(\"(.*?)\"\\)(\\.TypeConverter<(.*?)>\\(\\))?;",
+			"\\t\\t\\t",
+			", { \n    	type: 'input',\n    	name: 'summary',\n    	message: 'Enter a summary for this plugin?'\n    }",
+			"plugin",
+			"pluginName",
+			"chocolate",
+			"plugins",
+			"(?s)Steve.*?--*",
+			"(?s)-Steve.*?--*",
+			"(?s)Regards.*?--*",
+			"\\[.*?\\] ",
+			"r\\.(.*?),",
+			"1245255819",
+			"width",
+			"UserVoiceBrokerForumId",
+			", ",
+			"bg-bg",
+			"cha",
+			"p__linq",
+			"\\\\r\\\\n",
+			"^(.*)\\n?",
+			"1790948313\n",
+			"1750331005",
+			"\"(.*?)\",\"(.*?)\"",
+			"'",
+			"-",
+			"tin",
+			"Npi",
+			"=",
+			"new Data",
+			"^(?!new).*",
+			", ,",
+			"^(.*)\\n",
+			"\"(.*?)\",\"(.*?)\"",
+			"\"(.*?)\"",
+			"'",
+			"-",
+			"msdeploy",
+			"^(?=.*healthcare).*\\n.*\\n.*\\n.*\\n.*\\n",
+			"(.*)\\n",
+			"^(?!.*(chatn|cchpsc)\\.org).*\\n",
+			"LIVECHA",
+			"\"",
+			"(Connecting to: localhost)|(Connected to: localhost)|(Disconne.*)|(Performing.*)",
+			"Performing SFTP action",
+			"Connected to: localhost ",
+			"Connecting to: localhost",
+			"Disconnected from: localhost",
+			"Disconnecting from: localhost ",
+			"    ",
+			"<.*?>",
+			"  ",
+			"<.*?>",
+			"');\n",
+			"rewrite",
+			"$chk"
 		],
 		"highlight": true,
 		"in_selection": false,
-		"preserve_case": false,
+		"preserve_case": true,
 		"regex": false,
 		"replace_history":
 		[
+			"",
+			"\"$1\", ",
+			"",
+			"\"$1\", ",
+			"",
+			"\\n",
+			"Start-Process",
+			"host",
+			"return \"This field is required.\";",
+			"\\",
+			"",
+			",\\n",
+			",\\r\\n",
+			"newSub.$1 = Convert<$4>(record.$2, newSub, \"\");",
+			"newSub.$1 = Convert(record.$2, $4, newSub, \"\")",
+			"newSub.$1 = Convert(record.$2, $3, newSub, \"\")",
+			"",
+			"pluginId",
+			"",
+			"$1 = r.$1 == null ? \"\" : r.$1.ToLower(),  ",
+			"$1 = r.$1.ToLower(),  ",
+			"$1 = r.$1.ToLower()",
+			",",
+			"",
+			"\"$1\", ",
+			"{ \"Npi\": \"$1\", \"Tin\": \"$2\" }, ",
+			"\"",
+			"",
+			"\"Tin\"",
+			"\"Npi\"",
+			":",
+			"",
+			",",
+			"$1, ",
+			"new Data { Npi = \"$1\", Tin = \"$2\" }, ",
+			"\"",
+			"",
+			"\"$1\", ",
+			"",
+			"$this",
+			"chkPackageDir",
+			"chkPackageName",
+			"chkPluginsDir",
+			"chkToolsDir",
+			"chkPackageDir",
+			"chkPackageName",
+			", ",
+			",",
+			"$1, ",
+			"new [] { $1 }",
+			", ",
+			"$1, ",
+			"new ProviderData { Npi = \"$1\", TaxId = \"$2\" }",
+			"$1, ",
+			"new ProviderData ",
+			"^new ProviderData",
+			"$1, ",
+			"{ Npi = \"$1\", TaxId = \"$2\" }",
+			"\\r\\n",
+			"\"$1\", ",
+			"",
+			"\\r\\n",
+			"\"",
+			"\\\"",
+			"p",
+			"",
+			"\"$1\", ",
+			"'",
+			"\"$1\", ",
+			"",
+			"$1",
+			"",
+			"$1",
+			"",
+			"\"$1\", ",
+			"",
+			"$1",
+			"",
+			"\"$1\", ",
+			"",
+			"\"$1\", ",
+			"  choco webpi $1",
 			""
 		],
 		"reverse": false,
@@ -104,39 +461,27 @@
 		"whole_word": false,
 		"wrap": true
 	},
-	"folders":
-	[
-		{
-			"path": "C:\\projects\\git\\chocolatey-hotkey"
-		},
-		{
-			"path": "C:\\ProgramData\\chocolatey\\lib"
-		},
-		{
-			"path": "C:\\Users\\Alex Dresko\\OneDrive\\Utilities\\AutoHotKeyScripts"
-		}
-	],
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/Alex Dresko/OneDrive/Utilities/AutoHotKeyScripts/Global.ahk",
+					"file": "chocolatey-packages/chk-lib-alexdresko/tools/chk-lib-alexdresko.ahk",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5870,
+						"buffer_size": 573,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5672,
-								5672
+								349,
+								349
 							]
 						],
 						"settings":
@@ -144,34 +489,6 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5192.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1399,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1399,
-								1399
-							]
-						],
-						"settings":
-						{
-							"auto_name": "::dftba::",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -185,11 +502,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 32.0
 	},
 	"layout":
 	{
@@ -219,10 +536,10 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "",
+	"project": "chk.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -257,10 +574,10 @@
 	{
 	},
 	"show_minimap": true,
-	"show_open_files": false,
+	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 288.0,
+	"side_bar_width": 323.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

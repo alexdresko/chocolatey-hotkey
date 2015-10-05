@@ -1,7 +1,7 @@
 DoVisualStudio()
 {
   SetTitleMatchMode, 2
-  IfWinExist Microsoft Visual Studio
+  IfWinExist Microsoft Visual Studio ahk_exe devenv.exe
   {
       WinActivate
   }
