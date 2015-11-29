@@ -4,7 +4,7 @@
   <metadata>
     <id>chk-default-alexdresko</id>
     <title>Everything AHK/CHK Alex Dresko</title>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <authors>Alex Dresko</authors>
     <owners>Alex Dresko</owners>
     <summary>Everything AHK/CHK Alex Dresko</summary>
@@ -17,6 +17,11 @@
     <dependencies>
       <dependency id="chk-host-default" />
       <dependency id="chk-lib-alexdresko" />
+      <dependency id="chk-default-dt-fordatetime" />
+      <dependency id="chk-default-microsoft-office" />
+      <dependency id="chk-default-winshifti-chrome" />
+      <dependency id="chk-default-winshiftk-outlook" />
+      <dependency id="chk-default-winspace_windowbytext" />
     </dependencies>
     <releaseNotes></releaseNotes>
   </metadata>
