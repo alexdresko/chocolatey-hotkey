@@ -94,8 +94,6 @@ return
 ::@gmail::alexdresko@gmail.com
 ::@home::me@alexdresko.com
 ::@tibby::me@tibreadresko.com
-::ccorg::consumerschoicesc.org
-::sddocs::C:\Users\adresko\SkyDrive\Documents
 
 #F11::
 SetTitleMatchMode, 2

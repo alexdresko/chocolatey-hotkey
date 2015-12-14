@@ -18,10 +18,9 @@
       <dependency id="chk-host-default" />
       <dependency id="chk-lib-alexdresko" />
       <dependency id="chk-default-dt-fordatetime" />
-      <dependency id="chk-default-microsoft-office" />
       <dependency id="chk-default-winshifti-chrome" />
       <dependency id="chk-default-winshiftk-outlook" />
-      <dependency id="chk-default-winspace_windowbytext" />
+      <dependency id="chk-default-winspace-windowbytext" />
     </dependencies>
     <releaseNotes></releaseNotes>
   </metadata>
