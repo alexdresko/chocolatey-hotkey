@@ -1,0 +1,24 @@
+{
+  "name": "chocolatey-hotkey",
+  "version": "1.0.0",
+  "description": "A modular system for installing AutoHotKey plugins with Chocolatey.\r Hey",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexdresko/chocolatey-hotkey.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexdresko/chocolatey-hotkey/issues"
+  },
+  "homepage": "https://github.com/alexdresko/chocolatey-hotkey#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-contains": "^1.0.0",
+    "yargs": "^3.31.0"
+  }
+}

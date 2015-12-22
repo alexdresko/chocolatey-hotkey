@@ -1,6 +1,6 @@
 $chkPackageName = 'chk'
-$cinst = $env:ChocolateyInstall
-$chkPackageDir = join-path $cinst\lib\ -ChildPath $chkPackageName
+
+$chkPackageDir = join-path $env:ChocolateyInstall\lib\ -ChildPath $chkPackageName
 $chkToolsDir = join-path $chkPackageDir -ChildPath "Tools"
 $userProfile = $env:UserProfile
 
@@ -25,7 +25,7 @@ function InstallHost()
 
 	$hostLink = GetHostLink($name)
 
-	$target = join-path $cinst -childpath "lib\chk-host-$name\tools\chk-host-$name.ahk"
+	$target = join-path $env:ChocolateyInstall -childpath "lib\chk-host-$name\tools\chk-host-$name.ahk"
 
 	$WshShell = New-Object -comObject WScript.Shell
 	$Shortcut = $WshShell.CreateShortcut($hostLink)
@@ -43,7 +43,7 @@ function UninstallHost()
 
 	$hostLink = GetHostLink($name)
 
-	$uninstall = join-path $cinst -childpath "lib\chk-host-$name\tools\uninstall.ahk"
+	$uninstall = join-path $env:ChocolateyInstall -childpath "lib\chk-host-$name\tools\uninstall.ahk"
 	"Invoking $uninstall"
 	Start-Process $uninstall
 	$hostLink = GetHostLink($name)
