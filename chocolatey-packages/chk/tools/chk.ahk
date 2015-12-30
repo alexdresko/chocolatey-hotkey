@@ -13,7 +13,6 @@ FileRead , plugins_old , %A_ScriptDir%\plugins.ahk ; for comparison later on
 
 FileDelete %A_ScriptDir%\plugins.ahk ; make room to populate the file
 
-
 pluginIndex := -10
 loop 20
 {

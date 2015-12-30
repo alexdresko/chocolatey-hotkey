@@ -5,23 +5,35 @@
 // ${fileDirname}: the current opened file's dirname
 // ${fileExtname}: the current opened file's extension
 // ${cwd}: the current working directory of the spawned process
-
 // A task runner example that defines a problemMatcher inline instead of using
 // a predefined one.
-
 {
     "version": "0.1.0",
-	"showOutput": "always",
+    "showOutput": "always",
     "isShellCommand": true,
     "command": "gulp",
     "echoCommand": true,
     "tasks": [
         {
-            "taskName": "build",
+            "taskName": "install",
             "args": [
                 "--file='${file}'"
             ]
-            
+        }, {
+            "taskName": "package",
+            "args": [
+                "--file='${file}'"
+            ]
+        }, {
+            "taskName": "push",
+            "args": [
+                "--file='${file}'"
+            ]
+        }, {
+            "taskName": "uninstall",
+            "args": [
+                "--file='${file}'"
+            ]
         }
     ]
 }

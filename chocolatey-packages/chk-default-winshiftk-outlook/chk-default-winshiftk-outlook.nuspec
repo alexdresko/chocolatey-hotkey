@@ -17,7 +17,7 @@
     <dependencies>
       <dependency id="chk-host-default" />
       <dependency id="chk-default-microsoft-office" />
-    </dependencies>
+    </dependencies>  
     <releaseNotes></releaseNotes>
   </metadata>
   <files>
