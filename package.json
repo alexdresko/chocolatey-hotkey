@@ -19,6 +19,6 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-contains": "^1.0.0",
-    "yargs": "^3.31.0"
+    "yargs": "^9.0.1"
   }
 }
